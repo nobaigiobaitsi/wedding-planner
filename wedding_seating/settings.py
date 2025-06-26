@@ -75,8 +75,12 @@ WSGI_APPLICATION = "wedding_seating.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "wedding_db",
+        "USER": "nobaigiobaitsi",
+        "PASSWORD": "Xfg1jlk..",
+        "HOST": "localhost",  # or 'localhost'
+        "PORT": "3306",  # default MySQL port
     }
 }
 
