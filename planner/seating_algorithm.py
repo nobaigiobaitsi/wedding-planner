@@ -1,5 +1,4 @@
-import Guest
-import Relationship
+from planner.models import Guest, Relationship
 
 # Ok, so here we take the guest prefferably as an array of objects, and then we
 # take the relationships as an array of objects, and then we return the seating.
@@ -12,12 +11,12 @@ import Relationship
 
 max_table_seating = 10  # Maximum number of guests per table
 number_of_tables = 22  # Number of tables to be arranged
+guests = list(Guest.objects.all())
+relationships = list(Relationship.objects.all())
 
-field = Guest._meta.get_field("name", "group")
-for field in field:
-    print(field.name)
+relationship_map = {}
 
-
-relate = Relationship._meta.get_field("from_guest", "to_guest")
-for relate in relate:
-    print(relate.name, relate.relationship_type)
+for r in relationships:
+    score = 1 if r.relationship == "positive" else -1
+    relationship_map.setdefault(r.from_guest.id, {})[r.to_guest.id] = score
+    relationship_map.setdefault(r.to_guest.id, {})[r.from_guest.id] = score
